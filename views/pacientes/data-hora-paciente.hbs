@@ -1,1 +1,34 @@
-  <h1>data-hora-paciente</h1>
+<h1>Escolha uma data e hora para sua consulta</h1>
+
+<form action="/pacientes/data-hora">
+  <br>
+  <label for="date">Choose a date</label>
+  <input id="date" type="date">
+  <br>
+  <hr>
+  <br>
+  <label for="appt">Choose a time for your meeting:</label>
+  <input type="time" id="appt" name="appt" min="9:00" max="18:00" required>
+  <span class="note">Office hours are 9am to 6pm</span>
+  <br>
+  <input type="text">
+  <input type="submit">
+</form>
+
+
+<form>
+  <div>
+    <label for="festa">Escolha sua data preferida da festa (obrigatório, de 1º a 20 de abril):</label>
+    <input type="date" id="festa" name="festa" min="2017-04-01" max="2017-04-20" required>
+    <span class="validity"></span>
+  </div>
+  <div>
+    <input type="submit">
+  </div>
+</form>
+
+{{!-- https://developer.mozilla.org/pt-BR/docs/Web/HTML/Element/Input/data --
+
+https://www.youtube.com/watch?v=48vbJ8BqLZA
+
+}}

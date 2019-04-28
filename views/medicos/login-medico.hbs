@@ -1,1 +1,13 @@
-<h1>login-medico</h1>
+<h1>Login Médicos</h1>
+
+<form action="/medicos/login" method="POST">
+  <div class="div-dashed">
+    <h2>Já tenho cadastro</h2>
+    <label for="email">Usuário: </label>
+    <input type="email" name="email" placeholder="Digite seu e-mail" required>
+    <label for="senha">Senha: </label>
+    <input type="password" name="senha" placeholder="Digite sua senha">
+    <input type="submit" value="Login" name="gravar" id="gravar">
+    <input type="button" value="Voltar" name="voltar" id="voltar" onclick="location.href='/';">
+  </div>
+</form>

@@ -2,6 +2,12 @@
   border: 2px solid red;
 }
 
+.div-dashed {
+  border: 3px dashed red;
+  padding: 20px;
+  margin-top: 30px;
+}
+
 /* layout.hbs */
 hr {
   width: 60%;
@@ -63,17 +69,14 @@ hr {
   padding: 20px;
 }
 
-.cadastro-medico-div {
-  border: 3px dashed red;
-  padding: 20px;
-  margin-top: 30px;
-}
-
 .cadastro-medico-h2 {
   margin-top: 50px;
 }
-
 /* Fim cadastro-medico.hbs */
+
+/* login-medico.hbs */
+
+/* Fim login-medico.hbs */
 
 
 /* Footer */

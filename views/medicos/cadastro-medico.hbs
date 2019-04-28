@@ -3,8 +3,8 @@
 <div class="cadastro-medico-div-container">
   <h2>Informações pessoais</h2>
 
-  <form action="/cadastro" method="POST">
-    <div class="cadastro-medico-div">
+  <form action="/medico/cadastro" method="POST">
+    <div class="div-dashed">
       <label for="name">Nome:* </label>
       <input type="text" name="name" required>
       <label for="crm">CRM:* </label>
@@ -20,13 +20,13 @@
     </div>
 
     <h2 class="cadastro-medico-h2">Informações de acesso</h2>
-    <div class="cadastro-medico-div">
+    <div class="div-dashed">
       <label for="email">E-mail:* </label>
       <input type="email" name="email" required>
       <label for="senha">Senha:* </label>
       <input type="password" name="senha">
+      <input type="submit" value="Gravar" >
+      <input type="button" value="Voltar" name="voltar" onclick="location.href='/';">
     </div>
-    <input type="button" value="Gravar" name="gravar" id="gravar">
-    <input type="button" value="Voltar" name="voltar" id="voltar">
   </form>
 </div>
