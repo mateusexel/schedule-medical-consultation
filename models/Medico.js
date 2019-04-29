@@ -9,7 +9,11 @@ const DoctorSchema = new Schema({
     specialty: { type: String},
     telResidencial: { type: Number},
     cellphone: { type: Number},
+    {
+        timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
 });
 
 const Doctor = mongoose.model('Doctor', DoctorSchema);
 module.exports = Doctor;
+
+
