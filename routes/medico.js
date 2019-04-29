@@ -7,18 +7,17 @@ const router = express.Router(); //  = authRoutes const authRoutes = express.Rou
 const bcrypt = require('bcrypt');
 const Medico = require('../models/Medico');
 
-// ################################# passport
+// Autentication passport
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const ensureLogin = require("connect-ensure-login");
-// ################################# passport
+
 
 // Bcrypt to encrypt passwords
-
 const bcryptSalt = 10;
 
-// /signup
+// Sign Up
 router.get('/cadastro', (req, res) => {
   res.render('./medicos/cadastro-medico');
 });

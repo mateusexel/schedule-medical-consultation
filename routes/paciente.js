@@ -8,14 +8,12 @@ const router = express.Router(); //  = authRoutes const authRoutes = express.Rou
 // Patient model
 const bcrypt = require('bcrypt');
 
-// ################################# passport
+// Autentication passport
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const ensureLogin = require("connect-ensure-login");
 const Paciente = require('../models/Paciente');
-// ################################# passport
-
 
 // Bcrypt to encrypt passwords
 const bcryptSalt = 10;
