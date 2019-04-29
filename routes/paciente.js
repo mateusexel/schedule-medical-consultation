@@ -1,31 +1,102 @@
+// routes/auth-routes.js
 const express = require('express');
 
-const router = express.Router();
+const router = express.Router(); //  = authRoutes const authRoutes = express.Router();
 
-router.get('/agendamento', (req, res) => {
-  res.render('./pacientes/agendamento-paciente');
-});
+/* const app = express(); */
 
+// Patient model
+const bcrypt = require('bcrypt');
+
+// Autentication passport
+const session = require("express-session");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const ensureLogin = require("connect-ensure-login");
+const Paciente = require('../models/Paciente');
+
+// Bcrypt to encrypt passwords
+const bcryptSalt = 10;
+
+// Sign Up
 router.get('/cadastro', (req, res) => {
   res.render('./pacientes/cadastro-paciente');
 });
 
-router.get('/confirmacao', (req, res) => {
-  res.render('./pacientes/confirmar-dados-consulta-paciente');
+router.post('/cadastro', (req, res, next) => {
+  const {
+    username, password, cpf, name, birthdate, telResidencial, cellphone, healthInsurance,
+  } = req.body;
+
+  if (username === '' || password === '') {
+    res.render('/cadastro', { message: 'Indicate email and password' });
+    return;
+  }
+
+  Paciente.findOne({ username })
+    .then((user) => {
+    //  console.log('caiu no then do find Medico')  Debug
+      if (user !== null) {
+        res.render('/cadastro', { message: 'The username already exists' });
+        return;
+      }
+
+      const salt = bcrypt.genSaltSync(bcryptSalt);
+      const hashPass = bcrypt.hashSync(password, salt);
+
+      const newPatient = new Paciente({
+        username,
+        password: hashPass,
+        cpf,
+        name,
+        birthdate,
+        telResidencial,
+        cellphone,
+        healthInsurance,
+      });
+
+      newPatient.save((err) => {
+        if (err) {
+        //  console.log(err)          Debug
+          res.redirect('/cadastro');
+        } else {
+        //  console.log('Pacinte salvo')     Debug
+          res.redirect('/');
+        }
+      });
+    })
+    .catch((error) => {
+      next(error);
+    });
 });
 
-router.get('/data-hora', (req, res) => {
-  res.render('./pacientes/data-hora-paciente');
-});
-
-router.get('/imprimir', (req, res) => {
-  res.render('./pacientes/imprimir-paciente');
-});
-
+// Sign In
 router.get('/login', (req, res) => {
   res.render('./pacientes/login-paciente');
 });
+router.post('/login', passport.authenticate('local', {
+  successRedirect: '/paciente/agendamento',
+  failureRedirect: '/paciente/login',
+  failureFlash: false,
+  passReqToCallback: true,
+}));
 
-/* FALTA CRIAR AS ROTAS DE POST DOS FORMULARIO */
+// Routes protected
+router.get('/agendamento', ensureLogin.ensureLoggedIn(), (req, res) => {
+  res.render('./pacientes/secret/agendamento-paciente', { user: req.user });
+});
+
+
+router.get('/data-hora', ensureLogin.ensureLoggedIn(), (req, res) => {
+  res.render('./pacientes/secret/data-hora-paciente', { user: req.user });
+});
+
+router.get('/confirmacao', ensureLogin.ensureLoggedIn(), (req, res) => {
+  res.render('./pacientes/secret/confirmar-dados-consulta-paciente', { user: req.user });
+});
+
+router.get('/imprimir', ensureLogin.ensureLoggedIn(), (req, res) => {
+  res.render('./pacientes/secret/imprimir-paciente', { user: req.user });
+});
 
 module.exports = router;
